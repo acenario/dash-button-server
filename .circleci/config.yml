@@ -36,7 +36,7 @@ jobs:
 
       - save_cache:
           paths:
-            - ./env
+            - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       # run tests!
@@ -47,9 +47,8 @@ jobs:
       - run:
           name: run tests
           command: |
-            . env/bin/activate
+            . venv/bin/activate
             pytest
-            #python manage.py test
 
       - store_artifacts:
           path: test-reports
