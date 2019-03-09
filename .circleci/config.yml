@@ -53,3 +53,16 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST
+            $WAKE_COMMAND $MADDR $BTN_HOST $MASK $W_PORT
+            ssh $BTN_USER@$BTN_HOST
+            cd $BTN_PATH
+            git pull
+            open .
