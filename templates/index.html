@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ url_for('static', filename='css/theme-turnerblue.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+		<div class="main-container">
+		<section class="bg-primary pb0 slider-9-1492192163414">
+		        <div class="container pt80">
+		            <div class="row mb24 mb-xs-0">
+		                <div class="col-sm-10 col-sm-offset-1 text-center">
+		                    <h1 class="large">Default Page</h1>
+		                    <p class="lead">Put your content here!
+                            </p>
+                            <p class="lead">
+                                <a href="" target="_blank">Refer to blank link</a>
+                            </p>
+		                </div>
+		            </div>
+		            
+		            <!-- <div class="row mb80 mb-xs-24">
+		                <div class="col-sm-6 col-sm-offset-3">
+		                <form id="submit-form" onsubmit="event.preventDefault();">
+                            <textarea class="validate-required" name="MSG" rows="4" placeholder="Message" id="v" maxlength="140" style="color: black;"></textarea>
+                            <div class="g-recaptcha" data-sitekey="6LfsCB0UAAAAAN1VhzvD578Ml8ZiYjbJOo2uMDaw"></div>
+                            <input class="validate-required field-error" type="hidden" value="{{address}}" id="ip_addr" style="color: black;">
+                            <button type="submit">Say Something</button>
+                        </form>
+                        <span id="thanks" class="text-center"></span>
+		                </div>
+		            </div>
+		            
+		            <div class="row">
+                        <span id="link" class="text-center"></span>
+		            </div> -->
+		            
+		        </div>
+		        
+		    </section>			
+			<footer class="footer-2 bg-dark text-center-xs">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-4">
+							<a href="#"><img class="image-xxs fade-half" alt="Pic" src="{{ url_for('static', filename='img/logo-light.png') }}"></a>
+						</div>
+					
+						<div class="col-sm-4 text-center">
+							<span class="fade-half">
+								© Copyright 2017 <a href="http://arjunb.com" target="_blank">Arjun Bhatnagar</a> - All Rights Reserved
+							</span>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+				
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+    <script>
+        //INSERT GA SCRIPT HERES
+    </script>
+
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/parallax.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/form-submit.js') }}"></script>
+    </body>
+</html>
