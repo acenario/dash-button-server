@@ -1,11 +1,13 @@
 import configparser
 from sqlalchemy.schema import CreateSchema
-from sqlalchemy_utils import database_exists
+from sqlalchemy_utils import database_exists, create_database
 
-def load_db_url(db_type):
+def init_db(db_type):
     config = configparser.ConfigParser()
     config.read('config.ini')
     url = ""
+    initial = False
+    init = ""
 
     try:
         url = config.get('database', 'database_url')
@@ -13,8 +15,12 @@ def load_db_url(db_type):
         if db_type == "postgres":
             url = "postgresql://localhost/ai_ira_helper"
             if not database_exists(url):
-                CreateSchema('ai_ira_helper')
+                init = CreateSchema('ai_ira_helper')
+                create_database(url)
+                initial = True
         else:
             url = "sqlite:////tmp/test.db"
-
-    return url
+    
+    db_init = {"url": url, "initial": initial,"init": init}
+    
+    return db_init

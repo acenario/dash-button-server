@@ -1,6 +1,6 @@
 from flask_script import Server, Manager, prompt, prompt_bool
 from flask_migrate import Migrate, MigrateCommand
-from app import app, db
+from app import app, app_db
 from app import manager as app_manager
 from utils.networking import Networking
 import configparser
@@ -10,9 +10,9 @@ import os
 import io
 
 manager = Manager(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, app_db)
 ip = Networking.get_ip_address()
-manager.add_command("runserver", Server(host=ip))
+manager.add_command("runserver", Server(host=ip, use_debugger=True, use_reloader=True))
 manager.add_command('db', MigrateCommand)
 
 if __name__ == "__main__":

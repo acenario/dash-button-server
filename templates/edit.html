@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Edit Button{% endblock %}
+
+{% block content %}
+    <h1>Edit Dash Buttons</h1>
+    {% for button in buttons %}
+
+    <form action="{{ url_for('edit_buttons') }}" method="POST" class="needs-validation" novalidate>
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <label class="sr-only" for="button-id-{{button.id}}">Button Name</label>
+                <input type="text" readonly name="buttonId" class="form-control-plaintext" id="button-id-{{button.id}}" value={{button.id}} required>
+            </div>
+            <div class="col-auto">
+                <label class="sr-only" for="buttonName-{{button.id}}">Button Name</label>
+                <input type="text" name="buttonName" class="form-control" id="buttonName-{{button.id}}" value={{button.name}} required>
+            </div>
+            <div class="col-auto">
+                <label class="sr-only" for="macAddress-{{button.id}}">Mac Address</label>
+                <div class="input-group mb-2">
+                    <input type="text" name="macAddress" class="form-control" id="macAddress-{{button.id}}" value="{{button.mac}}" requiried>
+                </div>
+            </div>
+            <div class="col-auto">
+                    <label class="sr-only" for="style-{{button.id}}">Style</label>
+                    <div class="input-group mb-2">
+                        <input type="text" name="style" class="form-control" id="style-{{button.id}}" value="{{button.style}}" requiried>
+                    </div>
+                </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-2">Save</button>
+            </div>
+        </div>
+    </form>
+    {% endfor %}
+{% endblock %}
