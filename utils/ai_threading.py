@@ -10,6 +10,7 @@ class AiThread(threading.Thread):
         super(AiThread, self).__init__(group, target, name, args, kwargs)
         self._stop = threading.Event()
         self.cleanup = cleanup
+        self.queue = None
 
     def stop(self):
         self._stop.set()

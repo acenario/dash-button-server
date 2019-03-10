@@ -36,13 +36,12 @@ class AppManager(object):
     def test(self):
         pass
 
-    def load_thread_modules(self):
-        pass
-        # from threads.base.all_threads import LoadModules
-        # LoadModules()
+    def load_button_modules(self):
+        from buttons.base.all_buttons import LoadModules
+        LoadModules()
 
     def start(self):
-        self.load_thread_modules()
+        self.load_button_modules()
             
     def cleanup(self):
         for thread in self.main_threads:

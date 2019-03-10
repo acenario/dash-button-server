@@ -34,7 +34,9 @@ def index():
 
     elif request.method == 'GET':
         query_arg = request.args.get('v', 'Love you from Ira')
-        manager.main_queue.put("hello")
+        thread_name = "computer_sleep"
+        thread = manager.background_threads[thread_name]
+        thread.queue.put(query_arg)
         
         return render_template('index.html')
     
