@@ -39,9 +39,14 @@ class AppManager(object):
     def load_button_modules(self):
         from buttons.base.all_buttons import LoadModules
         LoadModules()
+    
+    def load_thread_modules(self):
+        from threads.base.all_threads import LoadModules
+        LoadModules()
 
     def start(self):
         self.load_button_modules()
+        self.load_thread_modules()
             
     def cleanup(self):
         for thread in self.main_threads:

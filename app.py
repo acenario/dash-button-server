@@ -23,7 +23,7 @@ manager = AppManager()
 manager.start()
 
 ### CACHE
-buttons = Button.query.all()
+buttons_cache = Button.query.all()
 
 ### ROUTES
 @app.route('/', methods=['POST', 'GET'])
@@ -44,6 +44,7 @@ def index():
                 app_db.session.add(btn)
                 app_db.session.commit()
                 print("Button stored in DB.")
+                buttons_cache = Button.query.all()
             except Exception as e:
                 print(e)
                 error = {}
@@ -109,6 +110,7 @@ def edit_buttons():
                 btn.style = style
                 app_db.session.commit()
                 print("Button edited in DB.")
+                buttons_cache = Button.query.all()
             except Exception as e:
                 print(e)
                 error = {}
