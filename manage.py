@@ -12,7 +12,7 @@ import io
 manager = Manager(app)
 migrate = Migrate(app, app_db)
 ip = Networking.get_ip_address()
-manager.add_command("runserver", Server(host=ip))
+manager.add_command("runserver", Server(host=ip,use_debugger=True))
 manager.add_command('db', MigrateCommand)
 
 if __name__ == "__main__":

@@ -21,7 +21,7 @@ class ButtonListenerThread(BaseThread):
             if thread_name in manager.background_threads:
                 if (Button.should_register_push(btn_id, self.cooldown)):
                     thread = manager.background_threads[thread_name]
-                    thread.queue.put(mac)
+                    thread.queue.put(btn_id)
 
     def blocking(self):
         sniff(prn=self.detect_button, filter="(udp and (port 67 or 68))", store=0, stop_filter=self.cleanup)

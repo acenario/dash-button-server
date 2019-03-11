@@ -137,6 +137,18 @@ def edit_buttons():
     
     return 'Made with love by Arjun & Ira'
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    if request.method == 'GET':
+        shutdown_server()
+    return 'Server shutting down...'
+
 ### MAIN
 if __name__ == "__main__":
     app.run()

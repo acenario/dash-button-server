@@ -10,7 +10,6 @@ class ComputerSleepButton(BaseButton):
         self.name = "computer_sleep"
     
     def action(self, event):
-        print("Pushed the button! Text Entered: {}".format(event))
         self.say("hello")
 
 t = ComputerSleepButton()
