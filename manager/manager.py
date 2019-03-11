@@ -14,6 +14,7 @@ class AppManager(object):
         self.background_threads = {}
         self.main_queue = queue.Queue()
         self.error_queue = queue.Queue()
+        self.cache = {}
 
         #Eventually translate AppManager into simpler manager with AppStack
         #Replicate ABC Stack

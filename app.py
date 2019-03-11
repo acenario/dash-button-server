@@ -13,17 +13,19 @@ init_db = connection.init_db(DB_TYPE)
 app.config['SQLALCHEMY_DATABASE_URI'] = init_db["url"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app_db = SQLAlchemy(app)
+manager = AppManager()
 from db.models.button import Button
 
 if (init_db["initial"]):
     app_db.create_all()
 
 ### MANAGER
-manager = AppManager()
 manager.start()
 
 ### CACHE
-buttons_cache = Button.query.all()
+manager.cache["buttons"] = Button.get_button_cache()
+
+
 
 ### ROUTES
 @app.route('/', methods=['POST', 'GET'])
@@ -44,7 +46,7 @@ def index():
                 app_db.session.add(btn)
                 app_db.session.commit()
                 print("Button stored in DB.")
-                buttons_cache = Button.query.all()
+                manager.cache["buttons"] = Button.get_button_cache()
             except Exception as e:
                 print(e)
                 error = {}
@@ -71,10 +73,10 @@ def index():
                                 style=style)
 
     elif request.method == 'GET':
-        query_arg = request.args.get('v', 'Love you from Ira')
-        thread_name = "computer_sleep"
-        thread = manager.background_threads[thread_name]
-        thread.queue.put(query_arg)
+        # query_arg = request.args.get('v', 'Love you from Ira')
+        # thread_name = "computer_sleep"
+        # thread = manager.background_threads[thread_name]
+        # thread.queue.put(query_arg)
         
         return render_template('index.html', 
                                 active1="active", 
@@ -110,7 +112,7 @@ def edit_buttons():
                 btn.style = style
                 app_db.session.commit()
                 print("Button edited in DB.")
-                buttons_cache = Button.query.all()
+                manager.cache["buttons"] = Button.get_button_cache()
             except Exception as e:
                 print(e)
                 error = {}

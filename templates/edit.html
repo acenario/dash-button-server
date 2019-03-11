@@ -7,9 +7,9 @@
 
     <form action="{{ url_for('edit_buttons') }}" method="POST" class="needs-validation" novalidate>
         <div class="form-row align-items-center">
-            <div class="col-auto">
+            <div class="col-auto" hidden>
                 <label class="sr-only" for="button-id-{{button.id}}">Button Name</label>
-                <input type="text" readonly name="buttonId" class="form-control-plaintext" id="button-id-{{button.id}}" value={{button.id}} required>
+                <input type="text" readonly name="buttonId" class="form-control-plaintext" id="button-id-{{button.id}}" value={{button.id}}>
             </div>
             <div class="col-auto">
                 <label class="sr-only" for="buttonName-{{button.id}}">Button Name</label>
@@ -26,6 +26,10 @@
                     <div class="input-group mb-2">
                         <input type="text" name="style" class="form-control" id="style-{{button.id}}" value="{{button.style}}" requiried>
                     </div>
+            </div>
+            <div class="col-auto">
+                    <label class="sr-only" for="button-pushed-{{button.id}}">Last Pushed</label>
+                    <input type="text" readonly name="lastPushed" class="form-control-plaintext" id="button-pushed-{{button.id}}" value={{button.last_pushed}}>
                 </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-2">Save</button>

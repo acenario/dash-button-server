@@ -1,4 +1,7 @@
+import os
+import time
 import queue 
+import subprocess
 from app import manager
 from abc import ABC, abstractmethod
 from utils.ai_threading import AiThread
@@ -8,6 +11,12 @@ class BaseButton:
     def __init__(self):
         self.name = "button_name"
         self.event_queue = queue.Queue()
+    
+    def say(self, text):
+        f = open(os.devnull, 'w')
+        subprocess.Popen(["say",
+                        text, 
+                        ], stdout=f)
 
     def action(self, event):
         raise NotImplementedError('You forgot to define an action.')
