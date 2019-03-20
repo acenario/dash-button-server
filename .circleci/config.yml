@@ -60,7 +60,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "source $PROFILE && $WAKE_COMMAND $MADDR $BTN_HOST $MASK $W_PORT && ssh $BTN_USER@$BTN_HOST 'cd $BTN_PATH && git pull && curl $BTN_HOST:$PORT/$ENDPOINT && pip install -r requirements.txt && cd scripts && killall Terminal && osascript ./restart.scpt'"
+            ssh $SSH_USER@$SSH_HOST "source $PROFILE && $WAKE_COMMAND $MADDR $BTN_HOST $MASK $W_PORT && ssh $BTN_USER@$BTN_HOST 'cd $BTN_PATH && git pull && curl $BTN_HOST:$PORT/$ENDPOINT && source $ENV && pip install -r requirements.txt && curl $BTN_HOST:$PORT2/$ENDPOINT && cd scripts && killall Terminal && osascript ./restart.scpt'"
 
 workflows:
   version: 2

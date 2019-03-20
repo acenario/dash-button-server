@@ -89,6 +89,37 @@ def index():
     
     return 'Made with love by Arjun & Ira'
 
+@app.route('/buttons', methods=['POST', 'GET'])
+# @requires_ssl
+def get_buttons():
+    if request.method == 'POST':
+        return json.dumps([{"error": "POST method not allowed" }]), 400
+    elif request.method == 'GET':
+        manager.cache["buttons"] = Button.get_button_cache()
+        return json.dumps(manager.cache["buttons"])
+        
+    return json.dumps([{"error": "missing application/json content-type or invalid json dict" }]), 400
+
+@app.route('/push', methods=['POST'])
+def push_button():
+    if request.method == 'POST':
+        if request.is_json:
+            post_dict = request.get_json()
+            if post_dict:
+                push_data = post_dict.get("push", None)
+                thread_name = push_data["thread_name"]
+                cooldown = push_data["cooldown"]
+                btn_id = push_data["btn_id"]
+                if thread_name in manager.background_threads:
+                    if (Button.should_register_push(btn_id, cooldown)):
+                        thread = manager.background_threads[thread_name]
+                        thread.queue.put(btn_id)
+                        return json.dumps([{"success": "registered button push" }]), 200
+                    else:                        
+                        return json.dumps([{"success": "registered push, but ignored" }]), 200
+                return json.dumps([{"error": "missing application/json content-type or invalid json dict" }]), 400
+        return json.dumps([{"error": "missing application/json content-type or invalid json dict" }]), 400
+
 @app.route('/editbuttons', methods=['POST', 'GET'])
 # @requires_ssl
 def edit_buttons():

@@ -39,6 +39,3 @@ class ButtonListenerThread(BaseThread):
 
     def stop(self):
         self.should_stop = True
-
-t = ButtonListenerThread()
-t.start()

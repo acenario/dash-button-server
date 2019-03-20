@@ -44,6 +44,10 @@ class AppManager(object):
     def load_thread_modules(self):
         from threads.base.all_threads import LoadModules
         LoadModules()
+    
+    def load_button_listener(self):
+        from sudo_needed.base.all_threads import LoadModules
+        LoadModules()
 
     def start(self):
         self.load_button_modules()
