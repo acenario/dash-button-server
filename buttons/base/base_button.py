@@ -18,6 +18,30 @@ class BaseButton:
                         text, 
                         ], stdout=f)
 
+    def sshcmd(self, host, command, user=None, stdin=None, check=False):
+        ''' Runs ssh command via subprocess.  Assuming .ssh/config is configured.
+
+        Args:
+            host: target host to send the command to
+            command: command to run on the host
+            user: (optional) user to use to login to host
+            stdin: (optional) override sys.stdin
+            check: (optional) pass to *subprocess.run*; if set, checks return code
+                and raises subprocess.CalledProcessError, if none-zero result
+
+        Returns:
+            subprocess.CompletedProcess object
+        '''
+
+        where = "%s" % host if user is None else "%s@%s" %(user, host)
+        result = subprocess.run(["ssh", where, command],
+                            shell=False,
+                            stdin=stdin,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            check=check)
+        return result
+
     def action(self, event):
         raise NotImplementedError('You forgot to define an action.')
 
