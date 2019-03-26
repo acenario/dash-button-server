@@ -15,8 +15,8 @@ class ComputerSleepButton(BaseButton):
         user_name = app.config["USER_NAME"]
         command_1 = app.config["CMD_1"]
         command_2 = app.config["CMD_2"]
-        cmd = "{} {}@{} '{}'".format(command_1,user_name, computer_name, command_2)
-        subprocess.call(cmd, shell=True)
+        host_id = "{}@{}".format(user_name,computer_name)
+        subprocess.call([command_1, host_id, "'{}'".format(command_2)], shell=False)
 
 t = ComputerSleepButton()
 t.start()
