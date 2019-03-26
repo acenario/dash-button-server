@@ -12,6 +12,10 @@ DB_TYPE = "postgres"
 init_db = connection.init_db(DB_TYPE)
 app.config['SQLALCHEMY_DATABASE_URI'] = init_db["url"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+try:
+    app.config.from_pyfile('local_config.cfg')
+except FileNotFoundError:
+    app.config.from_pyfile('sample_config.cfg')
 app_db = SQLAlchemy(app)
 manager = AppManager()
 from db.models.button import Button

@@ -104,3 +104,5 @@ ENV/
 
 example-requests/
 Ignore/
+
+local_config.cfg
