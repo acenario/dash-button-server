@@ -2,7 +2,7 @@ import os
 import time
 import queue 
 import subprocess
-from app import manager
+from app import manager, app
 from abc import ABC, abstractmethod
 from utils.ai_threading import AiThread
 from utils.custom_decorators import abstract_class_attributes
@@ -16,6 +16,13 @@ class BaseButton:
         f = open(os.devnull, 'w')
         subprocess.Popen(["say",
                         text, 
+                        ], stdout=f)
+
+    def play(self, sound_name):
+        f = open(os.devnull, 'w')
+        resource_path = os.path.join(app.root_path, 'static', 'sounds', sound_name)
+        subprocess.Popen(["afplay",
+                        resource_path, 
                         ], stdout=f)
 
     def sshcmd(self, host, command, user=None, stdin=None, check=False):
