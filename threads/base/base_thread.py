@@ -1,3 +1,4 @@
+import asyncio
 from app import manager
 from abc import ABC, abstractmethod
 from utils.ai_threading import AiThread
@@ -33,7 +34,8 @@ class BaseThread(ABC):
 
     @abstractmethod
     def start(self):
-        thread = AiThread(target=self.main, name=self.name, cleanup=self.stop)
+        loop = asyncio.get_event_loop()
+        thread = AiThread(target=self.main, name=self.name, cleanup=self.stop, loop=loop)
         if self.main_thread:
             manager.main_threads[self.name] = thread
         else:
