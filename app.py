@@ -1,4 +1,5 @@
 from flask import Flask, request, json, g, render_template, redirect
+from twilio.twiml.voice_response import Gather, VoiceResponse
 from flask_sqlalchemy import SQLAlchemy
 from manager.manager import AppManager
 from db import connection
@@ -183,6 +184,54 @@ def shutdown():
     if request.method == 'GET':
         shutdown_server()
     return 'Server shutting down...'
+
+@app.route("/answer", methods=['GET', 'POST'])
+def answer_call():
+    """Respond to incoming phone calls with a brief message."""
+    # Start our TwiML response
+    from_number = request.values.get('Caller')
+    # to_number = request.values.get('Called')
+
+    resp = VoiceResponse()
+
+    if from_number == "+19788073607" or from_number == "+16173540817":
+        # Read a message aloud to the caller
+        resp.play("https://instaud.io/_/3GEH.mp3")
+        resp.say("Welcome to Game of Thrones.", voice='man', language="en-GB")
+        resp.say("The door will now open. Enjoy the night.", voice='man', language="en-GB")
+        resp.play('', digits='ww9')
+        resp.say("If you can hear this message, Arjun messed up. Just text him.", voice='man', language="en-GB")
+
+        
+        # gather = Gather(action="/door", method="POST")
+        # gather.say("Welcome to Game of Thrones night. \n Please enter the code to enter.", voice='man', language="en-GB")
+
+        # resp.append(gather)
+
+        return str(resp)
+
+    return resp
+
+# @app.route("/door", methods=['GET', 'POST'])
+# def doorcode():
+#     """Respond to incoming phone calls with a brief message."""
+#     # Start our TwiML response
+#     from_number = request.values.get('Caller')
+#     # to_number = request.values.get('Called')
+
+#     resp = VoiceResponse()
+
+#     if from_number == "+19788073607" or from_number == "+16173540817":
+#         # Read a message aloud to the caller
+#         resp.play("https://instaud.io/_/3GEH.mp3")
+#         gather = Gather(action="/door")
+#         resp.say("Welcome to Game of Thrones night.", voice='man', language="en-GB")
+
+#         return str(resp)
+
+#     return resp
+
+    
 
 ### MAIN
 if __name__ == "__main__":
